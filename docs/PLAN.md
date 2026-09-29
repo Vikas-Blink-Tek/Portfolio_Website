@@ -9,7 +9,7 @@ Inputs analysed in this pass:
 | A | Asset concept sheet (11 panels: hero character, environment, 3D type, developer/security/project/nav/timeline/achievement/env/mobile assets) | Received, analysed |
 | B | Facial reference sheet (6 photo refs, 7 turnaround views, 9 detail crops, 6 expressions, accessories, material swatches) | Received, analysed |
 | C | Google Stitch HTML/Tailwind/Three.js prototype | Received, analysed |
-| D | Existing `.glb` models | **Not received.** Nothing in the repo or the chat |
+| D | Existing `.glb` models | Received: 5 models, see `GLB_REPORT.md` |
 | E | Resume / CV | **Not received** |
 | F | Raw, unedited photographs | **Not received.** Only the composited sheet B |
 
@@ -18,7 +18,7 @@ Inputs analysed in this pass:
 ## 0. Blocking gaps and contradictions (resolve before Phase 2)
 
 1. **Name mismatch.** The master prompt is titled *"SUSHANT 3D INTERACTIVE PORTFOLIO"*. Every attachment says **Vikas Maurya**. This plan uses *Vikas Maurya*. Please confirm.
-2. **No GLB models attached.** Part 5 (per-model analysis) can't be done yet. Section 5 below sets out the evaluation procedure and scoring I'll run once they're committed to `assets-incoming/models/`.
+2. ~~No GLB models attached.~~ Received and analysed in `GLB_REPORT.md`.
 3. **No resume.** The only professional facts available come from sheet A (listed in §0.1). The Stitch prototype adds many claims that appear in **no** source. They're listed in §0.2 and must not ship until you verify them.
 4. **Reference sheet B is partly synthetic.** REF 01–06 look like real photographs. The turnaround row and the expression row look AI-generated or AI-retouched (lighting and hair are too consistent, and the skin is smoothed). AI views drift from the real face, so they're a weak modelling source. **I need the original photographs** (front, both 3/4 views, both profiles, and one from slightly above), ideally uncompressed and without beauty filters.
 
@@ -177,39 +177,17 @@ Seated laptop idle: typing micro-motion (fingers only, low amplitude) plus an oc
 
 ---
 
-## 5. Supplied GLB models (not received), evaluation procedure
+## 5. Supplied GLB models: see [`GLB_REPORT.md`](GLB_REPORT.md)
 
-Once the files are committed to `assets-incoming/models/`, each one gets:
+Received 5 models, inspected, rendered and trial-optimised.
 
-```
-npx @gltf-transform/cli inspect <file>.glb      # meshes, tris, materials, textures, sizes
-npx @gltf-transform/cli validate <file>.glb
-```
-
-It's then scored on the table below and assigned **Keep / Optimise / Modify / Replace / Drop** plus a scene placement.
-
-| Criterion | Pass threshold (desktop prop) |
-|---|---|
-| Triangles | ≤ 8k hero prop, ≤ 3k background prop |
-| Materials | ≤ 3 PBR materials, no unsupported extensions |
-| Textures | ≤ 2048², convertible to KTX2 |
-| File size after optimisation | ≤ 600 KB hero, ≤ 200 KB background |
-| Style fit | Matte or brushed dark metal/glass; no photoreal clutter, no brand logos |
-| Licence | CC0 / CC-BY (credited) / purchased. Otherwise drop |
-| Narrative role | Must map to a project, the workspace, or the composition (§6) |
-
-Expected props, based on your description (laptop, phone, keyboard, headset, camera), and their provisional roles:
-
-| Prop | Provisional role | Likely verdict |
+| Model | Verdict | Role |
 |---|---|---|
-| Laptop | Hero workspace object; Finance Leads CRM screen; the portal into Projects | Keep + re-material (brushed dark aluminium, logo removed) |
-| Phone | Health Insurance AI Chatbot (conversation UI on screen) | Keep + optimise |
-| Keyboard | **Keylogger Research**: keyboard sealed in a glass containment case | Keep. The one prop with a strong conceptual role |
-| Monitor (if present) | MBVV Workforce Portal dashboard | Keep, or make procedurally (a slab + screen plane is trivial) |
-| Headset | No project maps to it | **Drop** unless it's part of how you really work |
-| Camera | No creative/video work in the attachments | **Drop** unless you have photo/video work |
-
----
+| Laptop | Keep. Split the lid, replace the screen plane, re-material | Hero prop; Finance Leads CRM; portal into Projects |
+| Phone | Keep. Merge 32 primitives into ~3, re-material, new screen plane | Health Insurance AI Chatbot |
+| Keyboard | Keep. 64.6k tris / 5 MB, down to ~10k tris / 116 KB; graphite retint; LED becomes the orange accent | Keylogger Research (in a glass case) |
+| Headset | Drop (optional background prop) | none |
+| Camera | Drop | none |
 
 ## 6. Asset inventory: custom / downloaded / procedural / HTML
 
@@ -458,6 +436,6 @@ Every 3D component accepts `position / rotation / scale / visible / quality` plu
 
 1. Confirm the name (**Vikas Maurya** vs "Sushant" in the prompt title).
 2. The **resume** (PDF or text) and, per project: role, stack, links, and any confidentiality limits.
-3. The **GLB files**, committed to `assets-incoming/models/` or attached.
+3. ~~The GLB files.~~ Received. Please confirm the licences for laptop, phone and keyboard (`GLB_REPORT.md`).
 4. **Original photographs** (raw, unfiltered; see §4 step 1). Tell me whether they may be committed to this repo, since it may be public.
 5. Decisions: cut walking (§4)? Keep sunglasses as an Easter-egg variant? Location to display (the Stitch prototype's "Mumbai" is unverified)?

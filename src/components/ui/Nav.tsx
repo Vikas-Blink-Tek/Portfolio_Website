@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 const links = [
   { href: "#work", label: "Work" },
@@ -41,12 +42,14 @@ export function Nav() {
             </a>
           ))}
         </nav>
-        <a
-          href={`mailto:${profile.email}`}
-          className="font-mono text-xs tracking-wide text-accent hover:text-warm-white border border-accent/40 hover:border-accent hover:bg-accent/10 px-3 py-1.5 rounded transition-colors"
-        >
-          Get in touch
-        </a>
+        <Magnetic>
+          <a
+            href={`mailto:${profile.email}`}
+            className="inline-block font-mono text-xs tracking-wide text-accent hover:text-warm-white border border-accent/40 hover:border-accent hover:bg-accent/10 px-3 py-1.5 rounded transition-colors"
+          >
+            Get in touch
+          </a>
+        </Magnetic>
       </div>
     </header>
   );

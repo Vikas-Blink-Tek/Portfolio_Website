@@ -1,12 +1,14 @@
 import { ReactNode } from "react";
+import { ScrambleText } from "@/components/motion/ScrambleText";
 
-export function SectionLabel({ index, children }: { index: string; children: ReactNode }) {
+export function SectionLabel({ index, children }: { index: string; children: string }) {
   return (
-    <div className="flex items-center gap-3 mb-6">
+    <div className="flex items-center gap-3 mb-6" data-reveal="left">
       <span className="h-px w-8 bg-accent inline-block" aria-hidden />
-      <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">
-        {index} / {children}
-      </span>
+      <ScrambleText
+        text={`${index} / ${children}`}
+        className="font-mono text-[11px] tracking-[0.2em] uppercase text-accent"
+      />
     </div>
   );
 }
@@ -23,9 +25,9 @@ export function Tag({ children, accent = false }: { children: ReactNode; accent?
   );
 }
 
-export function Panel({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function Panel({ children, className = "", ...rest }: { children: ReactNode; className?: string } & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`rounded-lg border border-white/[0.07] bg-surface-low/80 backdrop-blur-sm ${className}`}>
+    <div className={`rounded-lg border border-white/[0.07] bg-surface-low/80 backdrop-blur-sm ${className}`} {...rest}>
       {children}
     </div>
   );

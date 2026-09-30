@@ -1,17 +1,16 @@
 import { experience } from "@/data/experience";
 import { SectionLabel, Tag, Panel } from "@/components/ui/primitives";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 export function Timeline() {
   return (
     <section id="timeline" className="px-5 md:px-14 py-24 mx-auto max-w-content scroll-mt-20">
       <SectionLabel index="04">Timeline</SectionLabel>
-      <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-warm-white mb-12">
-        Trajectory
-      </h2>
+      <SplitReveal as="h2" text="Trajectory" className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight text-warm-white mb-12" />
       <ol className="flex flex-col gap-4">
         {experience.map((job) => (
           <li key={job.role + job.period}>
-            <Panel className="p-6 md:p-7 hover:border-accent/30 transition-colors">
+            <Panel className="p-6 md:p-7 hover:border-accent/30 transition-colors" data-reveal="up">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
                 <div className="lg:col-span-3">
                   <div className="flex items-center gap-2">

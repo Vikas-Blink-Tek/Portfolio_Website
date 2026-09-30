@@ -1,5 +1,6 @@
 import { projects } from "@/data/projects";
 import { SectionLabel, Tag, Panel } from "@/components/ui/primitives";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 export function Work() {
   const featured = projects.filter((p) => p.featured);
@@ -8,9 +9,7 @@ export function Work() {
   return (
     <section id="work" className="px-5 md:px-14 py-24 mx-auto max-w-content scroll-mt-20">
       <SectionLabel index="02">Selected Work</SectionLabel>
-      <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-warm-white mb-3">
-        Engineered Specimens
-      </h2>
+      <SplitReveal as="h2" text="Engineered Specimens" className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight text-warm-white mb-3" />
       <p className="text-grey max-w-2xl mb-12">
         Production systems and research tools — spanning law-enforcement software, desktop apps, parsing engines, and AI.
       </p>
@@ -28,7 +27,7 @@ export function Work() {
 
 function ProjectCard({ project: p, className = "", large = false }: { project: (typeof projects)[number]; className?: string; large?: boolean }) {
   return (
-    <Panel className={`group p-6 md:p-8 flex flex-col ${className} hover:border-accent/30 transition-colors`}>
+    <Panel className={`group p-6 md:p-8 flex flex-col ${className} hover:border-accent/30 transition-colors`} data-reveal="up">
       <div className="flex items-center justify-between mb-4">
         <span className="font-mono text-[11px] tracking-wide text-accent bg-accent/10 px-2 py-0.5 rounded font-bold">
           SPEC_{p.index}

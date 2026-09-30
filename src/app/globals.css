@@ -49,3 +49,29 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .reveal-on-scroll { opacity: 1 !important; transform: none !important; transition: none; }
 }
+
+/* ---- Custom cursor ---- */
+@media (pointer: fine) {
+  .has-custom-cursor, .has-custom-cursor a, .has-custom-cursor button { cursor: none; }
+}
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+  border-radius: 9999px; margin-left: -4px; margin-top: -4px;
+  mix-blend-mode: difference;
+}
+.cursor-dot { width: 8px; height: 8px; background: #EDEAE4; }
+.cursor-ring {
+  width: 38px; height: 38px; margin-left: -19px; margin-top: -19px;
+  border: 1px solid rgba(237,234,228,0.6);
+  transition: width .25s ease, height .25s ease, background .25s ease, border-color .25s ease;
+}
+.cursor-ring--active { width: 64px; height: 64px; margin-left: -32px; margin-top: -32px; background: rgba(255,77,36,0.15); border-color: #FF4D24; }
+@media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+/* ---- Marquee ---- */
+.marquee { overflow: hidden; white-space: nowrap; }
+.marquee__track { display: inline-flex; width: max-content; animation: marquee 26s linear infinite; }
+.marquee__track--rev { animation-direction: reverse; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }

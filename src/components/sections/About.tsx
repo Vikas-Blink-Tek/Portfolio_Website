@@ -1,6 +1,7 @@
 import { profile, skillGroups } from "@/data/profile";
 import { awards, certifications } from "@/data/experience";
 import { SectionLabel, Tag, Panel } from "@/components/ui/primitives";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 export function About() {
   return (
@@ -8,9 +9,7 @@ export function About() {
       <SectionLabel index="05">About &amp; Ecosystem</SectionLabel>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-5">
-          <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-warm-white mb-6">
-            Who is Vikas?
-          </h2>
+          <SplitReveal as="h2" text="Who is Vikas?" className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight text-warm-white mb-6" />
           {profile.about.map((p, i) => (
             <p key={i} className="text-grey leading-relaxed mb-4">{p}</p>
           ))}

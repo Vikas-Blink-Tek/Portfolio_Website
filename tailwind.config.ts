@@ -13,6 +13,10 @@ const config: Config = {
         grey: "#9A9794",
         outline: "#5A5754",
         accent: { DEFAULT: "#FF4D24", dim: "#C23A1B" },
+        amber: "#F5A623",
+        cream: "#ECE7DA",
+        sand: "#D9D2C2",
+        ink: "#141416",
       },
       fontFamily: {
         display: ["var(--font-syne)", "system-ui", "sans-serif"],

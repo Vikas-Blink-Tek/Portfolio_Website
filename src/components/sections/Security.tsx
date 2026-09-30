@@ -1,5 +1,6 @@
 import { securityTools } from "@/data/projects";
 import { SectionLabel, Panel } from "@/components/ui/primitives";
+import { SplitReveal } from "@/components/motion/SplitReveal";
 
 const domains = [
   {
@@ -34,9 +35,7 @@ export function Security() {
       <SectionLabel index="03">Security Lab</SectionLabel>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div className="lg:col-span-4">
-          <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-warm-white">
-            Break &amp; Secure
-          </h2>
+          <SplitReveal as="h2" text="Break & Secure" className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight text-warm-white" />
           <p className="mt-5 text-grey leading-relaxed">
             Security work beyond scanner output — understanding how systems actually fail, from web logic flaws to mobile evidence, and how to defend them.
           </p>

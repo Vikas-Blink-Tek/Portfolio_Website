@@ -1,0 +1,41 @@
+import { CountUp } from "@/components/motion/CountUp";
+import { Marquee } from "@/components/motion/Marquee";
+
+const stats = [
+  { end: 5000, suffix: "+", label: "Police personnel served", sub: "MBVV Workforce Portal" },
+  { end: 80, suffix: "+", label: "File formats parsed", sub: "Universal Extractor" },
+  { end: 1000, suffix: "+", label: "CTF participants hosted", sub: "TECHNOVA 2K25" },
+  { end: 5, suffix: "", label: "Certifications earned", sub: "Forensics · AI · Cyber" },
+];
+
+const marquee = ["ETHICAL HACKING", "DIGITAL FORENSICS", "OSINT", "PENETRATION TESTING", "FULL-STACK", "REACT", "PYTHON", "UFED", "RAG / AI", "NETWORK SECURITY"];
+
+export function Stats() {
+  return (
+    <section className="relative z-10 my-24">
+      {/* light band */}
+      <div className="bg-cream text-ink py-20 md:py-24" data-reveal="scale">
+        <div className="mx-auto max-w-content px-5 md:px-14">
+          <p className="font-mono text-[11px] tracking-[0.25em] uppercase text-ink/50 mb-12" data-reveal>
+            [ By the numbers ]
+          </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 md:gap-x-10">
+            {stats.map((s, i) => (
+              <div key={s.label} data-reveal data-delay={(i * 0.1).toString()}>
+                <div className="font-display font-extrabold text-4xl md:text-6xl tracking-tight text-ink leading-none tabular-nums whitespace-nowrap">
+                  <span className="text-accent"><CountUp end={s.end} suffix={s.suffix} /></span>
+                </div>
+                <p className="mt-3 font-semibold text-ink text-sm md:text-base">{s.label}</p>
+                <p className="font-mono text-[11px] text-ink/50 mt-1">{s.sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* marquee ticker */}
+      <div className="bg-accent text-void py-4 font-display font-bold text-xl md:text-2xl tracking-tight uppercase select-none">
+        <Marquee items={marquee} />
+      </div>
+    </section>
+  );
+}

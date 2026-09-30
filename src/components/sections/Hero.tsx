@@ -35,7 +35,7 @@ export function Hero() {
         {profile.heroIntro}
       </p>
 
-      <div className="mt-8 flex flex-wrap gap-2 reveal" style={{ animationDelay: "0.2s" }}>
+      <div className="mt-8 flex flex-wrap gap-2 reveal" style={{ animationDelay: "0.2s" }} data-speed="-0.06">
         {["Ethical Hacking", "Digital Forensics", "Full-Stack", "OSINT"].map((t) => (
           <Tag key={t}>{t}</Tag>
         ))}

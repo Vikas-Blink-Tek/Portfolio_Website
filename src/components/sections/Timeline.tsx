@@ -10,7 +10,7 @@ export function Timeline() {
       <ol className="flex flex-col gap-4">
         {experience.map((job) => (
           <li key={job.role + job.period}>
-            <Panel className="p-6 md:p-7 hover:border-accent/30 transition-colors" data-reveal="up">
+            <Panel className="p-6 md:p-7 hover:border-accent/30 transition-colors">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
                 <div className="lg:col-span-3">
                   <div className="flex items-center gap-2">

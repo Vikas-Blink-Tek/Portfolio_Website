@@ -28,18 +28,3 @@ export function useQualityTier() {
   return tier;
 }
 
-/** Reveal-on-scroll: adds `.is-visible` when the element enters the viewport. */
-export function useReveal<T extends HTMLElement>() {
-  const [ref, setRef] = useState<T | null>(null);
-  useEffect(() => {
-    if (!ref) return;
-    if (typeof IntersectionObserver === "undefined") { ref.classList.add("is-visible"); return; }
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("is-visible")),
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-    );
-    io.observe(ref);
-    return () => io.disconnect();
-  }, [ref]);
-  return setRef;
-}

@@ -38,18 +38,6 @@ body {
 /* Hero wordmark: fluid, always fits the viewport, never causes h-scroll */
 .hero-name { font-size: clamp(2.75rem, 13vw, 9.5rem); line-height: 0.92; }
 
-/* Scroll-reveal */
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
-  will-change: opacity, transform;
-}
-.reveal-on-scroll.is-visible { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal-on-scroll { opacity: 1 !important; transform: none !important; transition: none; }
-}
-
 /* ---- Custom cursor ---- */
 @media (pointer: fine) {
   .has-custom-cursor, .has-custom-cursor a, .has-custom-cursor button { cursor: none; }
@@ -68,10 +56,3 @@ body {
 .cursor-ring--active { width: 64px; height: 64px; margin-left: -32px; margin-top: -32px; background: rgba(255,77,36,0.15); border-color: #FF4D24; }
 @media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
 
-/* ---- Marquee ---- */
-.marquee { overflow: hidden; white-space: nowrap; }
-.marquee__track { display: inline-flex; width: max-content; animation: marquee 26s linear infinite; }
-.marquee__track--rev { animation-direction: reverse; }
-.marquee:hover .marquee__track { animation-play-state: paused; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }

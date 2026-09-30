@@ -27,7 +27,7 @@ export function Work() {
 
 function ProjectCard({ project: p, className = "", large = false }: { project: (typeof projects)[number]; className?: string; large?: boolean }) {
   return (
-    <Panel className={`group p-6 md:p-8 flex flex-col ${className} hover:border-accent/30 transition-colors`} data-reveal="up">
+    <Panel className={`group p-6 md:p-8 flex flex-col ${className} hover:border-accent/30 transition-colors`}>
       <div className="flex items-center justify-between mb-4">
         <span className="font-mono text-[11px] tracking-wide text-accent bg-accent/10 px-2 py-0.5 rounded font-bold">
           SPEC_{p.index}

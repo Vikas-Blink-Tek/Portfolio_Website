@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { profile } from "@/data/profile";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { CustomCursor } from "@/components/motion/CustomCursor";
 import "./globals.css";
 
@@ -41,7 +40,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${syne.variable} ${space.variable} ${mono.variable}`}>
       <body className="font-body grain">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <SmoothScroll />
         <CustomCursor />
         {children}
       </body>

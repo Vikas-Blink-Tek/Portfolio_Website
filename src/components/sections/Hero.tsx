@@ -4,7 +4,6 @@ import { Tag } from "@/components/ui/primitives";
 export function Hero() {
   return (
     <section id="top" className="relative min-h-[92vh] flex flex-col justify-center px-5 md:px-14 pt-28 pb-16 mx-auto max-w-content">
-      <div className="pointer-events-none absolute inset-0 -z-[1] bg-gradient-to-r from-void via-void/70 to-transparent" aria-hidden />
       <div className="flex flex-wrap items-center gap-3 mb-10 reveal">
         <span className="flex items-center gap-2 font-mono text-[11px] tracking-[0.15em] uppercase text-grey bg-surface-low/70 px-3 py-1.5 rounded">
           <span className="relative flex h-2 w-2">
@@ -35,7 +34,7 @@ export function Hero() {
         {profile.heroIntro}
       </p>
 
-      <div className="mt-8 flex flex-wrap gap-2 reveal" style={{ animationDelay: "0.2s" }} data-speed="-0.06">
+      <div className="mt-8 flex flex-wrap gap-2 reveal" style={{ animationDelay: "0.2s" }}>
         {["Ethical Hacking", "Digital Forensics", "Full-Stack", "OSINT"].map((t) => (
           <Tag key={t}>{t}</Tag>
         ))}

@@ -1,5 +1,4 @@
 import { Nav } from "@/components/ui/Nav";
-import { SceneMount } from "@/components/three/SceneMount";
 import { Hero } from "@/components/sections/Hero";
 import { Work } from "@/components/sections/Work";
 import { Stats } from "@/components/sections/Stats";
@@ -12,7 +11,6 @@ import { Footer } from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
-      <SceneMount />
       <Nav />
       <main className="relative z-10">
         <Hero />

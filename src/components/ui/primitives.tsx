@@ -3,7 +3,7 @@ import { ScrambleText } from "@/components/motion/ScrambleText";
 
 export function SectionLabel({ index, children }: { index: string; children: string }) {
   return (
-    <div className="flex items-center gap-3 mb-6" data-reveal="left">
+    <div className="flex items-center gap-3 mb-6">
       <span className="h-px w-8 bg-accent inline-block" aria-hidden />
       <ScrambleText
         text={`${index} / ${children}`}

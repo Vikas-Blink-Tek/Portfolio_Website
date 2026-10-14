@@ -6,6 +6,8 @@ const FEE_RATE = 0.01;
 const form = document.getElementById("withdrawForm");
 const amountInput = document.getElementById("amount");
 const success = document.getElementById("success");
+const processing = document.getElementById("processing");
+const PROCESSING_SECONDS = 15;
 
 const money = (n) =>
   "₹" + n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -117,22 +119,51 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  const btn = form.querySelector(".submit");
-  btn.disabled = true;
-  btn.textContent = "Processing…";
-
-  setTimeout(() => {
-    const amount = parseFloat(amountInput.value);
-    const labels = { bank: "bank account", upi: "UPI ID", paypal: "PayPal account" };
-    document.getElementById("successText").textContent =
-      `Your withdrawal of ${money(amount - amount * FEE_RATE)} to your ` +
-      `${labels[selectedMethod()]} is being processed. It usually takes 1–3 business days.`;
-    form.hidden = true;
-    success.hidden = false;
-    btn.disabled = false;
-    btn.textContent = "Request Withdrawal";
-  }, 1000);
+  form.hidden = true;
+  runProcessing(showSuccess);
 });
+
+// Simulated 15-second "payment under process" screen
+function runProcessing(done) {
+  const bar = document.getElementById("progressBar");
+  const countdown = document.getElementById("countdown");
+  const steps = document.querySelectorAll("#steps li");
+
+  let elapsed = 0;
+  const render = () => {
+    bar.style.width = (elapsed / PROCESSING_SECONDS) * 100 + "%";
+    countdown.textContent = PROCESSING_SECONDS - elapsed;
+    const current = Math.min(Math.floor((elapsed / PROCESSING_SECONDS) * steps.length), steps.length);
+    steps.forEach((li, i) => {
+      li.classList.toggle("done", i < current);
+      li.classList.toggle("active", i === current);
+    });
+  };
+
+  processing.hidden = false;
+  render();
+
+  const timer = setInterval(() => {
+    elapsed++;
+    render();
+    if (elapsed >= PROCESSING_SECONDS) {
+      clearInterval(timer);
+      setTimeout(() => {
+        processing.hidden = true;
+        done();
+      }, 400);
+    }
+  }, 1000);
+}
+
+function showSuccess() {
+  const amount = parseFloat(amountInput.value);
+  const labels = { bank: "bank account", upi: "UPI ID", paypal: "PayPal account" };
+  document.getElementById("successText").textContent =
+    `Your withdrawal of ${money(amount - amount * FEE_RATE)} to your ` +
+    `${labels[selectedMethod()]} has been initiated. It usually takes 1–3 business days to reflect.`;
+  success.hidden = false;
+}
 
 document.getElementById("newRequest").addEventListener("click", () => {
   form.reset();

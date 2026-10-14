@@ -129,6 +129,21 @@
       <button type="submit" class="submit">Request Withdrawal</button>
     </form>
 
+    <!-- Processing screen (simulated, 15 seconds) -->
+    <div id="processing" class="processing" hidden>
+      <div class="spinner"></div>
+      <h2>Payment under process</h2>
+      <p>Please don't close or refresh this page while we process your withdrawal.</p>
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <p class="countdown">Estimated time remaining: <strong id="countdown">15</strong>s</p>
+      <ul class="steps" id="steps">
+        <li>Verifying details</li>
+        <li>Checking balance</li>
+        <li>Initiating transfer</li>
+        <li>Confirming with bank</li>
+      </ul>
+    </div>
+
     <!-- Success message (front-end only) -->
     <div id="success" class="success" hidden>
       <div class="check">✓</div>

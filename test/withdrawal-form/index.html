@@ -4,156 +4,238 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Withdrawal Request</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <header class="card-header">
-      <h1>Withdraw Funds</h1>
-      <p class="subtitle">Transfer money from your wallet to your preferred account.</p>
-    </header>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+        </span>
+        <span>Withdrawals</span>
+      </div>
+      <div class="secure">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        Secure connection
+      </div>
+    </div>
+  </header>
 
-    <div class="balance">
-      <span>Available balance</span>
-      <strong id="balance">₹25,000.00</strong>
+  <main class="page">
+    <div class="page-head">
+      <h1>Request a withdrawal</h1>
+      <p>Send funds to your bank account or payout wallet, anywhere in the world.</p>
     </div>
 
-    <form id="withdrawForm" novalidate>
-      <!-- Amount -->
-      <div class="field">
-        <label for="amount">Withdrawal amount</label>
-        <div class="input-prefix">
-          <span>₹</span>
-          <input type="number" id="amount" name="amount" min="100" step="0.01" placeholder="0.00" required />
-        </div>
-        <div class="quick-amounts">
-          <button type="button" data-amount="500">₹500</button>
-          <button type="button" data-amount="1000">₹1,000</button>
-          <button type="button" data-amount="5000">₹5,000</button>
-          <button type="button" data-amount="max">Max</button>
-        </div>
-        <small class="hint">Minimum withdrawal: ₹100</small>
-        <small class="error" data-for="amount"></small>
-      </div>
+    <div class="card">
+      <form id="withdrawForm" novalidate>
+        <!-- 1. Amount -->
+        <section class="section">
+          <h2 class="section-title"><span class="step">1</span>Amount</h2>
 
-      <!-- Method -->
-      <fieldset class="field">
-        <legend>Withdrawal method</legend>
-        <div class="methods">
-          <label class="method">
-            <input type="radio" name="method" value="bank" checked />
-            <span>Bank Transfer</span>
-          </label>
-          <label class="method">
-            <input type="radio" name="method" value="upi" />
-            <span>UPI</span>
-          </label>
-          <label class="method">
-            <input type="radio" name="method" value="paypal" />
-            <span>PayPal</span>
-          </label>
-        </div>
-      </fieldset>
-
-      <!-- Bank details -->
-      <section class="method-fields" data-method="bank">
-        <div class="field">
-          <label for="holderName">Account holder name</label>
-          <input type="text" id="holderName" name="holderName" placeholder="As per bank records" />
-          <small class="error" data-for="holderName"></small>
-        </div>
-        <div class="field">
-          <label for="bankName">Bank name</label>
-          <input type="text" id="bankName" name="bankName" placeholder="e.g. State Bank of India" />
-          <small class="error" data-for="bankName"></small>
-        </div>
-        <div class="row">
           <div class="field">
-            <label for="accountNumber">Account number</label>
-            <input type="password" id="accountNumber" name="accountNumber" inputmode="numeric" placeholder="9–18 digits" />
-            <small class="error" data-for="accountNumber"></small>
+            <label for="amount">Withdrawal amount</label>
+            <div class="amount-group">
+              <input type="number" id="amount" name="amount" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+              <select id="currency" name="currency" aria-label="Currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="INR">INR</option>
+                <option value="AED">AED</option>
+                <option value="CAD">CAD</option>
+                <option value="AUD">AUD</option>
+                <option value="SGD">SGD</option>
+                <option value="CHF">CHF</option>
+              </select>
+            </div>
+            <small class="hint" id="minHint"></small>
+            <small class="error" data-for="amount"></small>
           </div>
+        </section>
+
+        <!-- 2. Method -->
+        <section class="section">
+          <h2 class="section-title"><span class="step">2</span>Payout method</h2>
+
+          <div class="methods" role="radiogroup" aria-label="Payout method">
+            <label class="method">
+              <input type="radio" name="method" value="bank" checked />
+              <span class="method-body">
+                <strong>Bank transfer</strong>
+                <small>Local or international (SWIFT)</small>
+              </span>
+            </label>
+            <label class="method">
+              <input type="radio" name="method" value="paypal" />
+              <span class="method-body">
+                <strong>PayPal</strong>
+                <small>To your PayPal account</small>
+              </span>
+            </label>
+            <label class="method" id="upiOption" hidden>
+              <input type="radio" name="method" value="upi" />
+              <span class="method-body">
+                <strong>UPI</strong>
+                <small>India only</small>
+              </span>
+            </label>
+          </div>
+        </section>
+
+        <!-- 3. Recipient -->
+        <section class="section">
+          <h2 class="section-title"><span class="step">3</span>Recipient details</h2>
+
           <div class="field">
-            <label for="confirmAccount">Confirm account number</label>
-            <input type="text" id="confirmAccount" name="confirmAccount" inputmode="numeric" placeholder="Re-enter number" />
-            <small class="error" data-for="confirmAccount"></small>
+            <label for="contactEmail">Contact email</label>
+            <input type="email" id="contactEmail" name="contactEmail" placeholder="you@example.com" autocomplete="email" />
+            <small class="error" data-for="contactEmail"></small>
           </div>
-        </div>
-        <div class="field">
-          <label for="ifsc">IFSC code</label>
-          <input type="text" id="ifsc" name="ifsc" maxlength="11" placeholder="e.g. SBIN0001234" />
-          <small class="error" data-for="ifsc"></small>
-        </div>
-      </section>
 
-      <!-- UPI details -->
-      <section class="method-fields" data-method="upi" hidden>
-        <div class="field">
-          <label for="upiId">UPI ID</label>
-          <input type="text" id="upiId" name="upiId" placeholder="name@bank" />
-          <small class="error" data-for="upiId"></small>
-        </div>
-      </section>
+          <!-- Bank -->
+          <div class="method-fields" data-method="bank">
+            <div class="row">
+              <div class="field">
+                <label for="country">Bank country</label>
+                <select id="country" name="country"></select>
+                <small class="error" data-for="country"></small>
+              </div>
+              <div class="field">
+                <label for="holderName">Account holder name</label>
+                <input type="text" id="holderName" name="holderName" placeholder="As shown on your bank account" autocomplete="name" />
+                <small class="error" data-for="holderName"></small>
+              </div>
+            </div>
 
-      <!-- PayPal details -->
-      <section class="method-fields" data-method="paypal" hidden>
-        <div class="field">
-          <label for="paypalEmail">PayPal email</label>
-          <input type="email" id="paypalEmail" name="paypalEmail" placeholder="you@example.com" />
-          <small class="error" data-for="paypalEmail"></small>
-        </div>
-      </section>
+            <div class="field">
+              <label for="bankName">Bank name</label>
+              <input type="text" id="bankName" name="bankName" placeholder="e.g. Barclays, Chase, HDFC Bank" />
+              <small class="error" data-for="bankName"></small>
+            </div>
 
-      <!-- Note -->
-      <div class="field">
-        <label for="note">Note <span class="optional">(optional)</span></label>
-        <textarea id="note" name="note" rows="3" maxlength="200" placeholder="Add a remark for this withdrawal"></textarea>
+            <div class="field" data-scheme="iban">
+              <label for="iban">IBAN</label>
+              <input type="text" id="iban" name="iban" placeholder="e.g. DE89 3704 0044 0532 0130 00" autocomplete="off" />
+              <small class="error" data-for="iban"></small>
+            </div>
+
+            <div class="row" data-scheme="account">
+              <div class="field">
+                <label for="accountNumber">Account number</label>
+                <input type="password" id="accountNumber" name="accountNumber" autocomplete="off" />
+                <small class="error" data-for="accountNumber"></small>
+              </div>
+              <div class="field">
+                <label for="confirmAccount">Confirm account number</label>
+                <input type="text" id="confirmAccount" name="confirmAccount" autocomplete="off" />
+                <small class="error" data-for="confirmAccount"></small>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field" data-scheme="code">
+                <label for="bankCode" id="bankCodeLabel">Bank code</label>
+                <input type="text" id="bankCode" name="bankCode" autocomplete="off" />
+                <small class="error" data-for="bankCode"></small>
+              </div>
+              <div class="field">
+                <label for="swift">SWIFT / BIC <span class="optional" id="swiftOptional">(optional)</span></label>
+                <input type="text" id="swift" name="swift" maxlength="11" placeholder="8 or 11 characters" autocomplete="off" />
+                <small class="error" data-for="swift"></small>
+              </div>
+            </div>
+          </div>
+
+          <!-- PayPal -->
+          <div class="method-fields" data-method="paypal" hidden>
+            <div class="field">
+              <label for="paypalEmail">PayPal account email</label>
+              <input type="email" id="paypalEmail" name="paypalEmail" placeholder="you@example.com" />
+              <small class="error" data-for="paypalEmail"></small>
+            </div>
+          </div>
+
+          <!-- UPI -->
+          <div class="method-fields" data-method="upi" hidden>
+            <div class="field">
+              <label for="upiId">UPI ID</label>
+              <input type="text" id="upiId" name="upiId" placeholder="name@bank" />
+              <small class="error" data-for="upiId"></small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">Reference note <span class="optional">(optional)</span></label>
+            <textarea id="note" name="note" rows="2" maxlength="140" placeholder="Shown on your statement where supported"></textarea>
+          </div>
+        </section>
+
+        <!-- Review -->
+        <section class="section">
+          <h2 class="section-title"><span class="step">4</span>Review</h2>
+
+          <dl class="summary">
+            <div><dt>Withdrawal amount</dt><dd id="sumAmount">—</dd></div>
+            <div><dt>Processing fee (1%)</dt><dd id="sumFee">—</dd></div>
+            <div class="total"><dt>Recipient receives</dt><dd id="sumTotal">—</dd></div>
+          </dl>
+          <p class="fine-print">Your bank or intermediary banks may charge additional fees for international transfers.</p>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" id="terms" name="terms" />
+              <span>I confirm the recipient details are correct. Withdrawals sent to incorrect details may not be recoverable.</span>
+            </label>
+            <small class="error" data-for="terms"></small>
+          </div>
+
+          <div id="formError" class="form-error" role="alert" hidden></div>
+
+          <button type="submit" class="submit">Submit withdrawal request</button>
+        </section>
+      </form>
+
+      <!-- Processing (15 seconds) -->
+      <div id="processing" class="processing" hidden>
+        <div class="spinner"></div>
+        <h2>Payment under process</h2>
+        <p>Please keep this page open while we process your withdrawal.</p>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <p class="countdown">Estimated time remaining: <strong id="countdown">15</strong>s</p>
+        <ul class="steps" id="steps">
+          <li>Verifying recipient details</li>
+          <li>Running compliance checks</li>
+          <li>Initiating transfer</li>
+          <li>Confirming with payment network</li>
+        </ul>
       </div>
 
-      <!-- Summary -->
-      <div class="summary">
-        <div><span>Amount</span><span id="sumAmount">₹0.00</span></div>
-        <div><span>Processing fee (1%)</span><span id="sumFee">₹0.00</span></div>
-        <div class="total"><span>You will receive</span><span id="sumTotal">₹0.00</span></div>
+      <!-- Success -->
+      <div id="success" class="success" hidden>
+        <div class="check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5L20 7"/></svg>
+        </div>
+        <h2>Withdrawal request submitted</h2>
+        <p id="successText"></p>
+        <dl class="receipt">
+          <div><dt>Reference</dt><dd id="rcRef" class="mono"></dd></div>
+          <div><dt>Amount</dt><dd id="rcAmount"></dd></div>
+          <div><dt>Recipient receives</dt><dd id="rcNet"></dd></div>
+          <div><dt>Method</dt><dd id="rcMethod"></dd></div>
+          <div><dt>Status</dt><dd><span class="badge">Pending</span></dd></div>
+        </dl>
+        <button type="button" id="newRequest" class="submit secondary">Make another withdrawal</button>
       </div>
-
-      <!-- Terms -->
-      <div class="field">
-        <label class="checkbox">
-          <input type="checkbox" id="terms" name="terms" />
-          <span>I confirm the details above are correct and agree to the withdrawal terms.</span>
-        </label>
-        <small class="error" data-for="terms"></small>
-      </div>
-
-      <div id="formError" class="form-error" role="alert" hidden></div>
-
-      <button type="submit" class="submit">Request Withdrawal</button>
-    </form>
-
-    <!-- Processing screen (simulated, 15 seconds) -->
-    <div id="processing" class="processing" hidden>
-      <div class="spinner"></div>
-      <h2>Payment under process</h2>
-      <p>Please don't close or refresh this page while we process your withdrawal.</p>
-      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-      <p class="countdown">Estimated time remaining: <strong id="countdown">15</strong>s</p>
-      <ul class="steps" id="steps">
-        <li>Verifying details</li>
-        <li>Checking balance</li>
-        <li>Initiating transfer</li>
-        <li>Confirming with bank</li>
-      </ul>
     </div>
 
-    <!-- Success message (front-end only) -->
-    <div id="success" class="success" hidden>
-      <div class="check">✓</div>
-      <h2>Request submitted</h2>
-      <p id="successText"></p>
-      <p class="reference">Reference ID: <strong id="reference"></strong></p>
-      <button type="button" id="newRequest" class="submit">Make another request</button>
-    </div>
+    <footer class="page-foot">
+      Your details are sent over an encrypted HTTPS connection.
+    </footer>
   </main>
 
   <script src="script.js"></script>

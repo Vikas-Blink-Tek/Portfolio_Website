@@ -7,16 +7,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231e40af'/%3E%3Cpath d='M17 23 29 11M21 11h8v8' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M27 13.5A10 10 0 1 0 30 21' fill='none' stroke='%23bfdbfe' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="brandBg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#1e3a8a" />
+              <stop offset="1" stop-color="#2563eb" />
+            </linearGradient>
+            <linearGradient id="brandShine" x1="8" y1="8" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="1" stop-color="#bfdbfe" />
+            </linearGradient>
+          </defs>
+          <rect width="40" height="40" rx="10" fill="url(#brandBg)" />
+          <!-- open ring with an outbound arrow: funds leaving the account -->
+          <path d="M27 13.5A10 10 0 1 0 30 21" fill="none" stroke="url(#brandShine)" stroke-width="3" stroke-linecap="round" opacity="0.55" />
+          <path d="M17 23 29 11M21 11h8v8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">Withdrawals</span>
+          <span class="brand-tag">Secure global payouts</span>
         </span>
-        <span>Withdrawals</span>
       </div>
       <div class="secure">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>

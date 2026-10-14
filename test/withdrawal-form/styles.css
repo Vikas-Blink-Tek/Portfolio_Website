@@ -307,6 +307,26 @@ textarea {
   margin-bottom: 24px;
 }
 
+.form-error {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: var(--error);
+  font-size: 14px;
+}
+
+.success p.reference {
+  margin: -12px 0 24px;
+  font-size: 14px;
+}
+
+.success .reference strong {
+  color: var(--text);
+  font-family: ui-monospace, Consolas, monospace;
+}
+
 .processing {
   text-align: center;
   padding: 20px 0 4px;

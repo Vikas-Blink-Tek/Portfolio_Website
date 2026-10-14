@@ -1,4 +1,8 @@
-// Front-end only: no data is sent anywhere.
+// Supabase: submitted requests are saved to the `withdrawals` table (see supabase.sql).
+// The publishable key is safe to expose in the browser; RLS only allows inserts.
+const SUPABASE_URL = "https://smwfnxztjycmglarzvyd.supabase.co";
+const SUPABASE_KEY = "sb_publishable_VFxZ_fd9NtP-Hv2zKssOMg_sAXBEphV";
+
 const BALANCE = 25000;
 const MIN_AMOUNT = 100;
 const FEE_RATE = 0.01;
@@ -113,15 +117,68 @@ function validate() {
 // Submit (simulated)
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  document.getElementById("formError").hidden = true;
   if (!validate()) {
     const first = form.querySelector(".invalid, .error:not(:empty)");
     if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
 
+  const request = buildRequest();
+  // Resolves to null on success or the error, so a failure isn't reported as unhandled.
+  const saving = saveRequest(request).then(() => null, (err) => err);
+
   form.hidden = true;
-  runProcessing(showSuccess);
+  runProcessing(async () => {
+    const err = await saving;
+    if (!err) return showSuccess(request);
+    console.error(err);
+    form.hidden = false;
+    showFormError("We couldn't submit your request. Please check your connection and try again.");
+  });
 });
+
+function buildRequest() {
+  const val = (id) => document.getElementById(id).value.trim() || null;
+  const amount = parseFloat(amountInput.value);
+  const fee = Math.round(amount * FEE_RATE * 100) / 100;
+  const method = selectedMethod();
+  return {
+    reference: "WD" + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 6).toUpperCase(),
+    amount,
+    fee,
+    net_amount: Math.round((amount - fee) * 100) / 100,
+    method,
+    holder_name: method === "bank" ? val("holderName") : null,
+    bank_name: method === "bank" ? val("bankName") : null,
+    account_number: method === "bank" ? val("accountNumber") : null,
+    ifsc: method === "bank" ? val("ifsc") : null,
+    upi_id: method === "upi" ? val("upiId") : null,
+    paypal_email: method === "paypal" ? val("paypalEmail") : null,
+    note: val("note"),
+    status: "pending",
+  };
+}
+
+async function saveRequest(request) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/withdrawals`, {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_KEY,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(request),
+  });
+  if (!res.ok) throw new Error(`Supabase insert failed (${res.status}): ${await res.text()}`);
+}
+
+function showFormError(message) {
+  const banner = document.getElementById("formError");
+  banner.textContent = message;
+  banner.hidden = false;
+  banner.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 // Simulated 15-second "payment under process" screen
 function runProcessing(done) {
@@ -156,12 +213,12 @@ function runProcessing(done) {
   }, 1000);
 }
 
-function showSuccess() {
-  const amount = parseFloat(amountInput.value);
+function showSuccess(request) {
   const labels = { bank: "bank account", upi: "UPI ID", paypal: "PayPal account" };
   document.getElementById("successText").textContent =
-    `Your withdrawal of ${money(amount - amount * FEE_RATE)} to your ` +
-    `${labels[selectedMethod()]} has been initiated. It usually takes 1–3 business days to reflect.`;
+    `Your withdrawal of ${money(request.net_amount)} to your ` +
+    `${labels[request.method]} has been initiated. It usually takes 1–3 business days to reflect.`;
+  document.getElementById("reference").textContent = request.reference;
   success.hidden = false;
 }
 

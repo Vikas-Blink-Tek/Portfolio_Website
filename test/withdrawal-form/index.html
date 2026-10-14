@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Withdrawal Request</title>
+  <title>Aurevia · Withdraw Funds</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231e40af'/%3E%3Cpath d='M17 23 29 11M21 11h8v8' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M27 13.5A10 10 0 1 0 30 21' fill='none' stroke='%23bfdbfe' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230b1f4b'/%3E%3Cpath d='M11.5 30 20 10l8.5 20M15 23.5h10' fill='none' stroke='%23e3c47a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -17,22 +17,22 @@
         <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
           <defs>
             <linearGradient id="brandBg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#1e3a8a" />
-              <stop offset="1" stop-color="#2563eb" />
+              <stop offset="0" stop-color="#0b1f4b" />
+              <stop offset="1" stop-color="#1e3a8a" />
             </linearGradient>
-            <linearGradient id="brandShine" x1="8" y1="8" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#ffffff" />
-              <stop offset="1" stop-color="#bfdbfe" />
+            <linearGradient id="brandGold" x1="10" y1="9" x2="30" y2="31" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#f7e2a6" />
+              <stop offset="1" stop-color="#c9a24a" />
             </linearGradient>
           </defs>
           <rect width="40" height="40" rx="10" fill="url(#brandBg)" />
-          <!-- open ring with an outbound arrow: funds leaving the account -->
-          <path d="M27 13.5A10 10 0 1 0 30 21" fill="none" stroke="url(#brandShine)" stroke-width="3" stroke-linecap="round" opacity="0.55" />
-          <path d="M17 23 29 11M21 11h8v8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          <!-- monogram "A" whose apex doubles as an upward arrow -->
+          <path d="M11.5 30 20 10l8.5 20" fill="none" stroke="url(#brandGold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M15 23.5h10" fill="none" stroke="url(#brandGold)" stroke-width="2.5" stroke-linecap="round" />
         </svg>
         <span class="brand-text">
-          <span class="brand-name">Withdrawals</span>
-          <span class="brand-tag">Secure global payouts</span>
+          <span class="brand-name">Aurevia</span>
+          <span class="brand-tag">Global Payouts</span>
         </span>
       </div>
       <div class="secure">

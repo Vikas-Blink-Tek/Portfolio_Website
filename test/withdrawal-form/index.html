@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Withdrawal Request</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="card">
+    <header class="card-header">
+      <h1>Withdraw Funds</h1>
+      <p class="subtitle">Transfer money from your wallet to your preferred account.</p>
+    </header>
+
+    <div class="balance">
+      <span>Available balance</span>
+      <strong id="balance">₹25,000.00</strong>
+    </div>
+
+    <form id="withdrawForm" novalidate>
+      <!-- Amount -->
+      <div class="field">
+        <label for="amount">Withdrawal amount</label>
+        <div class="input-prefix">
+          <span>₹</span>
+          <input type="number" id="amount" name="amount" min="100" step="0.01" placeholder="0.00" required />
+        </div>
+        <div class="quick-amounts">
+          <button type="button" data-amount="500">₹500</button>
+          <button type="button" data-amount="1000">₹1,000</button>
+          <button type="button" data-amount="5000">₹5,000</button>
+          <button type="button" data-amount="max">Max</button>
+        </div>
+        <small class="hint">Minimum withdrawal: ₹100</small>
+        <small class="error" data-for="amount"></small>
+      </div>
+
+      <!-- Method -->
+      <fieldset class="field">
+        <legend>Withdrawal method</legend>
+        <div class="methods">
+          <label class="method">
+            <input type="radio" name="method" value="bank" checked />
+            <span>Bank Transfer</span>
+          </label>
+          <label class="method">
+            <input type="radio" name="method" value="upi" />
+            <span>UPI</span>
+          </label>
+          <label class="method">
+            <input type="radio" name="method" value="paypal" />
+            <span>PayPal</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Bank details -->
+      <section class="method-fields" data-method="bank">
+        <div class="field">
+          <label for="holderName">Account holder name</label>
+          <input type="text" id="holderName" name="holderName" placeholder="As per bank records" />
+          <small class="error" data-for="holderName"></small>
+        </div>
+        <div class="field">
+          <label for="bankName">Bank name</label>
+          <input type="text" id="bankName" name="bankName" placeholder="e.g. State Bank of India" />
+          <small class="error" data-for="bankName"></small>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="accountNumber">Account number</label>
+            <input type="password" id="accountNumber" name="accountNumber" inputmode="numeric" placeholder="9–18 digits" />
+            <small class="error" data-for="accountNumber"></small>
+          </div>
+          <div class="field">
+            <label for="confirmAccount">Confirm account number</label>
+            <input type="text" id="confirmAccount" name="confirmAccount" inputmode="numeric" placeholder="Re-enter number" />
+            <small class="error" data-for="confirmAccount"></small>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ifsc">IFSC code</label>
+          <input type="text" id="ifsc" name="ifsc" maxlength="11" placeholder="e.g. SBIN0001234" />
+          <small class="error" data-for="ifsc"></small>
+        </div>
+      </section>
+
+      <!-- UPI details -->
+      <section class="method-fields" data-method="upi" hidden>
+        <div class="field">
+          <label for="upiId">UPI ID</label>
+          <input type="text" id="upiId" name="upiId" placeholder="name@bank" />
+          <small class="error" data-for="upiId"></small>
+        </div>
+      </section>
+
+      <!-- PayPal details -->
+      <section class="method-fields" data-method="paypal" hidden>
+        <div class="field">
+          <label for="paypalEmail">PayPal email</label>
+          <input type="email" id="paypalEmail" name="paypalEmail" placeholder="you@example.com" />
+          <small class="error" data-for="paypalEmail"></small>
+        </div>
+      </section>
+
+      <!-- Note -->
+      <div class="field">
+        <label for="note">Note <span class="optional">(optional)</span></label>
+        <textarea id="note" name="note" rows="3" maxlength="200" placeholder="Add a remark for this withdrawal"></textarea>
+      </div>
+
+      <!-- Summary -->
+      <div class="summary">
+        <div><span>Amount</span><span id="sumAmount">₹0.00</span></div>
+        <div><span>Processing fee (1%)</span><span id="sumFee">₹0.00</span></div>
+        <div class="total"><span>You will receive</span><span id="sumTotal">₹0.00</span></div>
+      </div>
+
+      <!-- Terms -->
+      <div class="field">
+        <label class="checkbox">
+          <input type="checkbox" id="terms" name="terms" />
+          <span>I confirm the details above are correct and agree to the withdrawal terms.</span>
+        </label>
+        <small class="error" data-for="terms"></small>
+      </div>
+
+      <button type="submit" class="submit">Request Withdrawal</button>
+    </form>
+
+    <!-- Success message (front-end only) -->
+    <div id="success" class="success" hidden>
+      <div class="check">✓</div>
+      <h2>Request submitted</h2>
+      <p id="successText"></p>
+      <button type="button" id="newRequest" class="submit">Make another request</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
